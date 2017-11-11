@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20171102230103) do
   create_table "user_shows", force: :cascade do |t|
     t.integer "user_id"
     t.integer "show_id"
-    t.integer "status"
-    t.integer "progress"
+    t.integer "status", default: 1
+    t.integer "progress", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["show_id"], name: "index_user_shows_on_show_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20171102230103) do
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
+    t.string "user_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
