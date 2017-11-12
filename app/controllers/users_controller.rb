@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: :show
+  before_action :authenticate_user, only: :info
 
   #  POST /users
   def create
@@ -13,9 +13,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /user/:id
-  def show
-    render json: @user
+  # GET /user/info
+  def info
+    render json: {"user": current_user.user_name}
   end
 
 end
