@@ -1,30 +1,37 @@
 class UserShowsController < ApplicationController
   before_action :set_userShow, :only => [:show, :update, :destroy]
+  before_action :authenticate_user
 
-  # GET /usershows
+
+  # GET /user_shows
   def index
-    @user_shows = UserShow.where(user_id: params[:id])
+    @user_shows = UserShow.where(user_id: current_user.id)
     render json: @user_shows
   end
 
-  # GET /userShows/:id
+  # GET /user_shows/:id
   def show
     render json: @user_show
   end
 
-  # POST /userShows
+  # POST /user_shows
   def create
-    @user_show = UserShow.new(params[:user_id], params[:show_id])
-    render json: @user_show
+    @user_show = UserShow.new(user_id: current_user.id ,show_id: params[:show_id])
+
+    if @user_show.save then
+      render json: @user_show
+    else
+      render json: { errors: @user_show.errors }, status: 422
+    end
   end
 
-  # DELETE /userShows/:id
+  # DELETE /user_shows/:id
   def update
     @user_show.update(userShow_params)
     head :no_content
   end
 
-  # PUT /userShows/:id
+  # PUT /user_shows/:id
   def destroy
     @user_show.destroy
     head :no_content
