@@ -40,7 +40,7 @@ class UserShowsController < ApplicationController
 
   # DELETE /user_shows/:id
   def destroy
-    user_show = UserShow.where(user_id: current_user.id, show_id: params[:show_id])
+    @user_show = UserShow.where(user_id: current_user.id, show_id: params[:show_id])
     @user_show.destroy
     head :no_content
   end
