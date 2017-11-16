@@ -27,7 +27,7 @@ class UserShowsController < ApplicationController
 
   # PUT /user_shows/:id
   def update
-    @user_show = UserShow.where(user_id: current_user.id, show_id: params[:show_id])
+    @user_show = UserShow.find_by(id: params[:id], user_id: current_user.id)
     @user_show.update(userShow_params)
 
     if @user_show.save then
@@ -40,7 +40,7 @@ class UserShowsController < ApplicationController
 
   # DELETE /user_shows/:id
   def destroy
-    @user_show = UserShow.where(user_id: current_user.id, show_id: params[:show_id])
+    @user_show = UserShow.find_by(id: params[:id], user_id: current_user.id)
     @user_show.destroy
     head :no_content
   end
