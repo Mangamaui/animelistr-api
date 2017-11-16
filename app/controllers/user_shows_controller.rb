@@ -25,14 +25,22 @@ class UserShowsController < ApplicationController
     end
   end
 
-  # DELETE /user_shows/:id
+  # PUT /user_shows/:id
   def update
+    @user_show = UserShow.where(user_id: current_user.id, show_id: params[:show_id])
     @user_show.update(userShow_params)
+
+    if @user_show.save then
+      render json: @user_show
+    else
+      render json: { errors: @user_show.errors }, status: 422
+    end
     head :no_content
   end
 
-  # PUT /user_shows/:id
+  # DELETE /user_shows/:id
   def destroy
+    user_show = UserShow.where(user_id: current_user.id, show_id: params[:show_id])
     @user_show.destroy
     head :no_content
   end
