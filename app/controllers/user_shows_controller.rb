@@ -6,12 +6,12 @@ class UserShowsController < ApplicationController
   # GET /user_shows
   def index
     @user_shows = UserShow.where(user_id: current_user.id)
-    render json: @user_shows
+    render json: @user_shows.as_json(only: [:id, :show_id, :status, :progress])
   end
 
   # GET /user_shows/:id
   def show
-    render json: @user_show
+    render json: @user_show.as_json(only: [:id, :show_id, :status, :progress])
   end
 
   # POST /user_shows
@@ -19,7 +19,7 @@ class UserShowsController < ApplicationController
     @user_show = UserShow.new(user_id: current_user.id ,show_id: params[:show_id])
 
     if @user_show.save then
-      render json: @user_show
+      render json: @user_show.as_json(only: [:id, :show_id, :status, :progress])
     else
       render json: { errors: @user_show.errors }, status: 422
     end
@@ -31,18 +31,18 @@ class UserShowsController < ApplicationController
     @user_show.update(userShow_params)
 
     if @user_show.save then
-      render json: @user_show
+      render json: @user_show.as_json(only: [:id, :show_id, :status, :progress])
     else
       render json: { errors: @user_show.errors }, status: 422
     end
-    head :no_content
+
   end
 
   # DELETE /user_shows/:id
   def destroy
     @user_show = UserShow.find_by(id: params[:id], user_id: current_user.id)
     @user_show.destroy
-    head :no_content
+
   end
 
 
