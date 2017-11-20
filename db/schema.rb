@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20171116125544) do
   create_table "user_shows", force: :cascade do |t|
     t.integer "user_id"
     t.integer "show_id"
-    t.integer "status", default: 1
+    t.integer "status", default: 0
     t.integer "progress", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
